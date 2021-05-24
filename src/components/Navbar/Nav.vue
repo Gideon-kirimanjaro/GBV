@@ -25,22 +25,21 @@
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
-            <v-card-text> <Report /></v-card-text>
+            <v-card-text> <Report /> </v-card-text>
           </v-card>
         </v-tab-item>
         <v-tab-item>
-          <v-card flat>
-            <v-card-text> <h1>This is the Help page</h1></v-card-text>
-          </v-card>
+          <Help />
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
-            <v-card-text> <h1>This is the Analytics page</h1></v-card-text>
+            <v-card-text>
+              <h1>This is the Analytics page</h1>
+            </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-
     <div class="footer">@Gideon Kirimanjaro</div>
   </div>
 </template>
@@ -48,9 +47,10 @@
 <script>
 import About from "../About/About";
 import Report from "../Report/Report";
+import Help from "../Help/Help";
 export default {
   name: "Nav",
-  components: { About, Report },
+  components: { About, Report, Help },
 
   data() {
     return {

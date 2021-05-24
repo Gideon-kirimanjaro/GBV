@@ -1,62 +1,71 @@
 <template>
   <div>
-    <v-container>
-      <v-col cols="6">
-        <v-text-field v-model="name" label="Preferred Name"></v-text-field>
-        <v-text-field v-model="age" label="Age"></v-text-field>
-        <v-text-field v-model="location" label="Location"></v-text-field>
-        <span :key="item.index" v-for="item in area">
-          <h4 class="map">
-            <i>{{ item.street }},{{ item.region }} , {{ item.country }}</i>
-          </h4>
-        </span>
-        <v-btn @click="getLocation">Your approximate Location</v-btn>
-        <v-text-field v-model="contact" label="Contact"></v-text-field>
-        <h6 class="gen">Gender</h6>
-        <input type="radio" id="male" v-model="gender" value="male" />
-        <label for="male">Male</label><br />
-        <input type="radio" id="female" v-model="gender" value="female" />
-        <label for="female">Female</label><br />
-        <input type="radio" id="other" v-model="gender" value="other" />
-        <label for="other">Other</label>
-        <h6 class="gen">Type of violence</h6>
-        <input type="checkbox" id="physical" name="physical" value="violence" />
-        <label for="vehicle1">Physical</label><br />
-        <input type="checkbox" id="sexual" name="sexual" value="violence" />
-        <label for="vehicle2"> Sexual</label><br />
-        <input
-          type="checkbox"
-          id="Psychological"
-          name="psychological"
-          value="violence"
-        />
-        <label for="vehicle3"> psychological</label><br />
-        <input
-          type="checkbox"
-          id="economical"
-          name="economical"
-          value="violence"
-        />
-        <label for="vehicle3"> Economical</label>
-        <h6>
-          Access information on the types of violence
-          <a target="_blank" href="https://www.eac.int/gender/gbv/forms-of-gbv"
-            >here</a
-          >
-        </h6>
-        <textarea
-          rows="4"
-          cols="50"
-          v-model="message"
-          placeholder="Briefly describe the type of  violence you have been facing"
-        ></textarea>
-        <v-checkbox
-          v-model="agree"
-          label="Agree to submit the information"
-        ></v-checkbox>
-        <button @click="postDetails">Submit</button>
-      </v-col>
-    </v-container>
+    <v-container id="outer">
+      <div id="inner">
+        <v-col cols="6">
+          <v-text-field v-model="name" label="Preferred Name"></v-text-field>
+          <v-text-field v-model="age" label="Age"></v-text-field>
+          <v-text-field v-model="contact" label="Contact"></v-text-field>
+          <v-text-field v-model="location" label="Location"></v-text-field>
+          <span :key="item.index" v-for="item in area">
+            <h4 class="map">
+              <i>{{ item.street }},{{ item.region }} , {{ item.country }}</i>
+            </h4>
+          </span>
+          <v-btn @click="getLocation">Your approximate Location</v-btn>
+
+          <h6 class="gen">Gender</h6>
+          <input type="radio" id="male" v-model="gender" value="male" />
+          <label for="male">Male</label><br />
+          <input type="radio" id="female" v-model="gender" value="female" />
+          <label for="female">Female</label><br />
+          <input type="radio" id="other" v-model="gender" value="other" />
+          <label for="other">Other</label>
+          <h6 class="gen">Type of violence</h6>
+          <input
+            type="checkbox"
+            id="physical"
+            name="physical"
+            value="violence"
+          />
+          <label for="vehicle1">Physical</label><br />
+          <input type="checkbox" id="sexual" name="sexual" value="violence" />
+          <label for="vehicle2"> Sexual</label><br />
+          <input
+            type="checkbox"
+            id="Psychological"
+            name="psychological"
+            value="violence"
+          />
+          <label for="vehicle3"> psychological</label><br />
+          <input
+            type="checkbox"
+            id="economical"
+            name="economical"
+            value="violence"
+          />
+          <label for="vehicle3"> Economical</label>
+          <h6 class="gen">
+            Access information on the types of violence
+            <a
+              target="_blank"
+              href="https://www.eac.int/gender/gbv/forms-of-gbv"
+              >here</a
+            >
+          </h6>
+          <textarea
+            rows="4"
+            cols="50"
+            v-model="message"
+            placeholder="Briefly describe the type of  violence you have been facing"
+          ></textarea>
+          <v-checkbox label="Agree to submit the information"></v-checkbox>
+          <button @click="postDetails" disabled="emptyVictims">
+            Submit
+          </button>
+        </v-col>
+      </div></v-container
+    >
   </div>
 </template>
 
@@ -71,7 +80,6 @@ export default {
       location: "",
       gender: "",
       contact: "",
-      agree: false,
       violence: [],
       test: true,
       message: "",
@@ -90,9 +98,20 @@ export default {
         this.message,
       ] = "");
     },
+    emptyVictims() {
+      return (
+        this.name === "",
+        this.age === "",
+        this.location === "",
+        this.gender === "",
+        this.contact === "",
+        this.violence === "",
+        this.message === ""
+      );
+    },
   },
   methods: {
-    postDetails() {
+    async postDetails() {
       const obj = {
         name: this.name,
         age: this.age,
@@ -102,7 +121,8 @@ export default {
         violence: this.violence,
         message: this.message,
       };
-      db.ref("victim-reports")
+      await db
+        .ref("victim-reports")
         .push()
         .set(obj)
         .then(this.clearVictim());
@@ -125,7 +145,7 @@ export default {
               {
                 region: data.region,
                 country: data.country,
-                street: data.poi.addr_street,
+                street: data.staddress,
               },
             ];
             area.forEach((val) => {
@@ -137,12 +157,6 @@ export default {
             });
 
             console.log("Ndio hawa makeng'ethe", points);
-
-            // // area.forEach((val) => {
-            // //   points.push({
-
-            // //   });
-            // // });
           });
       });
     },
@@ -172,5 +186,14 @@ textarea {
 }
 .report {
   text-align: center;
+}
+#outer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+#inner {
+  padding: 5px;
 }
 </style>
