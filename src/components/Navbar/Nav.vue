@@ -34,13 +34,15 @@
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <h1>This is the Analytics page</h1>
+              <Community />
             </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
+      <div class="footer">
+        all rights reserved &copy; Gideon Kirimanjaro 2021
+      </div>
     </v-card>
-    <div class="footer">@Gideon Kirimanjaro</div>
   </div>
 </template>
 
@@ -48,14 +50,15 @@
 import About from "../About/About";
 import Report from "../Report/Report";
 import Help from "../Help/Help";
+import Community from "../Community/Community";
 export default {
   name: "Nav",
-  components: { About, Report, Help },
+  components: { About, Report, Help, Community },
 
   data() {
     return {
       tabs: null,
-      headers: ["About", "Report", "Help", "Analytics"],
+      headers: ["About", "Report", "Help", "Community"],
       text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };
@@ -71,7 +74,7 @@ export default {
   font-size: 20px;
 }
 .footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;

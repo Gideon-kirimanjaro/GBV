@@ -3,10 +3,22 @@
     <v-container id="outer">
       <div id="inner">
         <v-col cols="6">
-          <v-text-field v-model="name" label="Preferred Name"></v-text-field>
-          <v-text-field v-model="age" label="Age"></v-text-field>
-          <v-text-field v-model="contact" label="Contact"></v-text-field>
-          <v-text-field v-model="location" label="Location"></v-text-field>
+          <v-text-field
+            v-model="name"
+            label="Preferred Name"
+            required
+          ></v-text-field>
+          <v-text-field v-model="age" label="Age" required></v-text-field>
+          <v-text-field
+            v-model="contact"
+            label="Contact"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="location"
+            label="Location"
+            required
+          ></v-text-field>
           <span :key="item.index" v-for="item in area">
             <h4 class="map">
               <i>{{ item.street }},{{ item.region }} , {{ item.country }}</i>
@@ -59,10 +71,18 @@
             v-model="message"
             placeholder="Briefly describe the type of  violence you have been facing"
           ></textarea>
-          <v-checkbox label="Agree to submit the information"></v-checkbox>
-          <button @click="postDetails" disabled="emptyVictims">
-            Submit
-          </button>
+          <v-checkbox
+            v-model="isActive"
+            label="Agree to submit the information"
+          ></v-checkbox>
+          <div>
+            <v-btn :disabled="emptyFields" @click="postDetails">
+              Submit
+            </v-btn>
+            <h5 class="red" v-if="emptyFields">Fill out all fields</h5>
+          </div>
+
+          <h4 v-if="text">{{ thank }}</h4>
         </v-col>
       </div></v-container
     >
@@ -75,41 +95,30 @@ export default {
   name: "Report",
   data() {
     return {
+      isActive: false,
       name: "",
       age: "",
       location: "",
       gender: "",
       contact: "",
       violence: [],
-      test: true,
+      text: false,
       message: "",
       area: [],
+      thank: "Thank you for your submission!!",
     };
   },
   computed: {
-    clearVictim() {
-      return ([
-        this.name,
-        this.age,
-        this.location,
-        this.gender,
-        this.contact,
-        this.violence,
-        this.message,
-      ] = "");
+    toggle() {
+      return this.isActive == !this.isActive;
     },
-    emptyVictims() {
+    emptyFields() {
       return (
-        this.name === "",
-        this.age === "",
-        this.location === "",
-        this.gender === "",
-        this.contact === "",
-        this.violence === "",
-        this.message === ""
+        this.name == "", this.age == "", this.location == "", this.contact == ""
       );
     },
   },
+
   methods: {
     async postDetails() {
       const obj = {
@@ -120,12 +129,22 @@ export default {
         contact: this.contact,
         violence: this.violence,
         message: this.message,
+        text: true,
       };
       await db
         .ref("victim-reports")
         .push()
         .set(obj)
-        .then(this.clearVictim());
+        .then(
+          ((this.name = ""),
+          (this.age = ""),
+          (this.location = ""),
+          (this.gender = ""),
+          (this.contact = ""),
+          (this.violence = ""),
+          (this.message = ""))
+        )
+        .then((this.text = !this.text));
     },
     getLocation() {
       const points = [];
@@ -195,5 +214,8 @@ textarea {
 }
 #inner {
   padding: 5px;
+}
+.red {
+  color: red;
 }
 </style>

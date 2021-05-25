@@ -1,5 +1,6 @@
 <template>
   <div>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <v-container
       ><div class="group">
         <v-row>
@@ -31,99 +32,27 @@
                   <u>{{ shrink.location }}</u>
                 </h6></i
               >
-              <v-row justify="center">
-                <v-dialog v-model="dialog" persistent max-width="600px">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                      Open Dialog
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">User Profile</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              label="Legal first name*"
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              label="Legal middle name"
-                              hint="example of helper text only on focus"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              label="Legal last name*"
-                              hint="example of persistent helper text"
-                              persistent-hint
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12">
-                            <v-text-field
-                              label="Email*"
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12">
-                            <v-text-field
-                              label="Password*"
-                              type="password"
-                              required
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-select
-                              :items="['0-17', '18-29', '30-54', '54+']"
-                              label="Age*"
-                              required
-                            ></v-select>
-                          </v-col>
-                          <v-col cols="12" sm="6">
-                            <v-autocomplete
-                              :items="[
-                                'Skiing',
-                                'Ice hockey',
-                                'Soccer',
-                                'Basketball',
-                                'Hockey',
-                                'Reading',
-                                'Writing',
-                                'Coding',
-                                'Basejump',
-                              ]"
-                              label="Interests"
-                              multiple
-                            ></v-autocomplete>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                      <small>*indicates required field</small>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="dialog = false">
-                        Close
-                      </v-btn>
-                      <v-btn color="blue darken-1" text @click="dialog = false">
-                        Save
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-row>
+
+              <h4 class="text">
+                Contact:
+                <h5>+{{ shrink.contact }}</h5>
+              </h4>
+              <a class="text" target="_blank" :href="shrink.profile"
+                >view Profile</a
+              >
             </v-container>
           </v-card>
+          <h4 class="help">
+            Find more counsellors
+            <a
+              target="_blank"
+              href="https://www.therapyroute.com/therapists/kenya/1"
+              >here</a
+            >
+          </h4>
         </v-row>
       </div>
     </v-container>
-    <!-- <h4>Access more help <a href="">here</a></h4> -->
   </div>
 </template>
 
@@ -138,6 +67,9 @@ export default {
           key: 1,
           name: "Fartun Abdi ",
           title: "Psychologist",
+          contact: 254746735543,
+          profile:
+            "https://www.therapyroute.com/therapist/fartun-abdi-abdille-mombasa-ke",
           description:
             "An experienced, competent and compassionate child psychotherapist working predo…",
           location: "Mombasa",
@@ -147,6 +79,9 @@ export default {
           key: 2,
           name: "Jullie Otieno",
           title: "Psychologist",
+          contact: 254775895096,
+          profile:
+            "https://www.therapyroute.com/therapist/jullie-otieno-kisumu-ke",
           location: "Kisumu",
           description:
             "An experienced psychotherapist,focused on building a therapeutic relations.....",
@@ -156,6 +91,9 @@ export default {
           key: 3,
           name: "Joyce Kariuki",
           title: "counsellor",
+          contact: 254790537020,
+          profile:
+            "https://www.therapyroute.com/therapist/joyce-kariuki-nairobi-ke",
           location: "Thika, Nairobi",
           description:
             "An experienced, competent and compassionate counselor, dealing with anxiety, depression, addiction.....",
@@ -166,6 +104,9 @@ export default {
           name: "Pauline Wanje",
           title: "Family Therapist",
           location: "Kiambu, Ruiru",
+          contact: 254722416885,
+          profile:
+            "https://www.therapyroute.com/therapist/pauline-wanje-ruiru-ke",
           description:
             "An experienced Marriage & Family therapist with clinical psychology skills with over....",
           pic: "@/assets/lambert.png",
@@ -174,6 +115,9 @@ export default {
           key: 5,
           name: "Jane Wekesa",
           title: "counsellor",
+          contact: 254724281144,
+          profile:
+            "https://www.therapyroute.com/therapist/jane-wekesa-webuye-ke",
           location: "Webuye, Western Province",
           description:
             "I am a licensed counselling psychologist with a practising experience of 7 year...",
@@ -183,13 +127,15 @@ export default {
           key: 6,
           name: "Sophie Muriuki",
           title: "Psychologist (clinical)",
+          contact: 254712445339,
+          profile:
+            "https://www.therapyroute.com/therapist/sophie-muriuki-nairobi-ke",
           location: "Lavington, Nairobi",
           description:
             "A competent Clinical Psychologist working with both children and adults across a range of psyc",
           pic: "@/assets/lambert.png",
         },
       ],
-      images: [{ pic: "@/assets/lambert.png" }],
     };
   },
 };
@@ -224,5 +170,10 @@ export default {
 }
 .group {
   margin-left: 80px;
+}
+.help {
+  margin-top: 30px;
+  margin-bottom: 80px;
+  margin-left: 100px;
 }
 </style>
