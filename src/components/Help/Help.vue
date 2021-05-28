@@ -174,6 +174,6 @@ export default {
 .help {
   margin-top: 30px;
   margin-bottom: 80px;
-  margin-left: 100px;
+  margin-left: 80px;
 }
 </style>

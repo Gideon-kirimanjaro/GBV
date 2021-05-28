@@ -2,7 +2,7 @@
   <div>
     <v-container class="d-md-flex justify-space-around">
       <v-container
-        ><img height="400" width="400" src="@/assets/hand.jpg" alt=""
+        ><img height="400" width="350" src="@/assets/hand.jpg" alt=""
       /></v-container>
 
       <v-container class="d-flex align-center mt-md-5">
