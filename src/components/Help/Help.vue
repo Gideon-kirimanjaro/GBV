@@ -169,7 +169,7 @@ export default {
   color: rgb(165, 236, 165);
 }
 .group {
-  margin-left: 80px;
+  margin-left: 10px;
 }
 .help {
   margin-top: 30px;

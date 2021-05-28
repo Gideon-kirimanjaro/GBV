@@ -8,12 +8,13 @@
 
       <v-toolbar flat>
         <template v-slot:extension>
-          <v-tabs v-model="tabs" fixed-tabs>
+          <v-tabs v-model="tabs" align-with-title>
             <v-tabs-slider></v-tabs-slider>
             <v-tab :key="head" v-for="head in headers"
-              ><h5 class="headings">{{ head }}</h5></v-tab
+              ><h6 class="headings">{{ head }}</h6></v-tab
             >
           </v-tabs>
+          >
         </template>
       </v-toolbar>
 

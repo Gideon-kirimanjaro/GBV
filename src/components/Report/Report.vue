@@ -3,11 +3,7 @@
     <v-container id="outer">
       <div id="inner">
         <v-col cols="6">
-          <v-text-field
-            v-model="name"
-            label="Preferred Name"
-            required
-          ></v-text-field>
+          <v-text-field v-model="name" label=" Name" required></v-text-field>
           <v-text-field v-model="age" label="Age" required></v-text-field>
           <v-text-field
             v-model="contact"
@@ -24,7 +20,7 @@
               <i>{{ item.street }},{{ item.region }} , {{ item.country }}</i>
             </h4>
           </span>
-          <v-btn @click="getLocation">Your approximate Location</v-btn>
+          <v-btn @click="getLocation">Your Location</v-btn>
 
           <h6 class="gen">Gender</h6>
           <input type="radio" id="male" v-model="gender" value="male" />
@@ -67,7 +63,7 @@
           </h6>
           <textarea
             rows="4"
-            cols="50"
+            cols="30"
             v-model="message"
             placeholder="Briefly describe the type of  violence you have been facing"
           ></textarea>
@@ -211,6 +207,7 @@ textarea {
   display: flex;
   justify-content: center;
   padding: 5px;
+  margin-left: 30px;
 }
 #inner {
   padding: 5px;
